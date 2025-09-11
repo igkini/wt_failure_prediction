@@ -323,8 +323,8 @@ class WindTurbineFailureDatasetMultiCode(Dataset):
 
     def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
 
-        x = torch.FloatTensor(self.data_x[idx])
-        x_time = torch.FloatTensor(self.data_time[idx])
+        x = torch.tensor(self.data_x[idx], dtype=torch.float32)
+        x_time = torch.tensor(self.data_time[idx], dtype=torch.float32)
         x_code = torch.tensor(self.data_code[idx], dtype=torch.long)
         y = torch.tensor(self.labels[idx], dtype=torch.long)
 
