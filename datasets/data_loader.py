@@ -279,7 +279,7 @@ class WindTurbineFailureDatasetMultiCode(Dataset):
                     )
                 else:
                     window_df_scaled = window_df
-
+            
                 # fill missing values inside scaled window
                 slice_arr = fill_window(window_df_scaled, 0, len(window_df_scaled))
             

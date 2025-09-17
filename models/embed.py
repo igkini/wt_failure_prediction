@@ -128,11 +128,12 @@ class MultiCodeEmbedding(nn.Module):
 
         embedded_code= self.code_emb(code_idx)
         return embedded_code.sum(dim=2)
-    
+
 class CodeDataembedding(nn.Module):
     def __init__(self, c_in, d_model, embed_type='fixed', freq='h', code_vocab_size=311, dropout=0.1):
         super(CodeDataembedding, self).__init__()
 
+        self.norm=nn.LayerNorm(d_model)
         self.value_embedding = TokenEmbedding(c_in=c_in, d_model=d_model)
         self.position_embedding = PositionalEmbedding(d_model=d_model)
         self.temporal_embedding = TemporalEmbedding(d_model=d_model, embed_type=embed_type, freq=freq) if embed_type!='timeF' else TimeFeatureEmbedding(d_model=d_model,                                                        embed_type=embed_type, freq=freq)
@@ -141,7 +142,8 @@ class CodeDataembedding(nn.Module):
     def forward(self, x, x_mark, x_code):
 
         x=self.value_embedding(x) + self.position_embedding(x) + self.temporal_embedding(x_mark) + self.code_embedding(x_code)
+        emb=self.norm(x)
 
-        return x
+        return emb
     
     
