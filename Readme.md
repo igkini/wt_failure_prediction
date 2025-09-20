@@ -132,8 +132,8 @@ To address the severe class imbalance in the dataset, the data was **significant
 Only **5 failures** were available in the provided dataset, and windows labeled as `0` (no failure) greatly outnumbered those labeled as `1` (failure).  
 
 - **Data Split**  
-  - 4 failure cases were used for **training and validation**.  
-  - 1 failure case was held out for **testing**.  
+  - 4 failure cases were used for **training**.  
+  - 1 failure case was held out for **testing and validation**.  
 
 - **Evaluation Strategy**  
   - After each training epoch, the model was evaluated on the test case.  

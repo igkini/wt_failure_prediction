@@ -145,16 +145,12 @@ def test(
     acc_class_0 = compute_class_accuracy(y_true_np, y_pred_np, 0)
     acc_class_1 = compute_class_accuracy(y_true_np, y_pred_np, 1)
 
-    print(f"  Test   | Class 0 (No‑fail) accuracy: {acc_class_0:5.2f}%")
-    print(f"  Test   | Class 1 (Fail)     accuracy: {acc_class_1:5.2f}%")
     return acc_class_0, acc_class_1
-
 
 def train(
     model: nn.Module,
     train_loader: torch.utils.data.DataLoader,
     val_loader: torch.utils.data.DataLoader,
-    test_loader: torch.utils.data.DataLoader,
     device: torch.device,
     num_epochs: int,
     patience: int,
@@ -207,9 +203,6 @@ def train(
         history["val_acc"].append(val_acc)
         history["f1"].append(f1)
 
-        # Test after each epoch
-        print(f"\n----- Testing after epoch {epoch + 1} -----")
-        test(model, test_loader, device)
 
         # Persist model
         Path(ckpt_dir).mkdir(parents=True, exist_ok=True)
@@ -225,7 +218,6 @@ def train(
         torch.cuda.empty_cache()
 
     return history
-
 
 def run_inference(
     model: torch.nn.Module,
